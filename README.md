@@ -2,7 +2,7 @@
 Филипеня Александра, гр. 153503  
 Система покупки и бронирования билетов на мероприятия (концерты, кино, театр и т.д.).  
 ## Диаграмма классов
-![Diagram](https://github.com/SashaFfF/TicketBookingSystem/blob/main/diagram.jpg)
+![Diagram](https://github.com/SashaFfF/TicketBookingSystem/blob/main/new_diagram.jpg)
 ## Функционал:
 1. Стартовая страница  
 a)	Возможность выбора вкладки с типом мероприятия, Категория “Кино” по умолчанию  
