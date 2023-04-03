@@ -47,10 +47,10 @@ Event:
 - Name: string;  
 - EventType: EventType (поле для хранения информации о типе мероприятия: кино, концерты, выставки и т.д.);  
 - Description: string;  
-- Location: Location (поле для хранения информации о месте проведения мероприятия);  
-- Date: Date;  
-- Organizer: Organizer(поле для хранения информации об организаторе мероприятия);  
-- AgeLimit: AgeLimit. 
+- EventLocation: Location (поле для хранения информации о месте проведения мероприятия);  
+- Date: DateTime;  
+- EventOrganizer: Organizer (поле для хранения информации об организаторе мероприятия);  
+- EventAgeLimit: AgeLimit. 
  
 EventType:  
 - Id;  
@@ -66,7 +66,7 @@ Location:
 Organizer (организатор мероприятия):  
 - Id;  
 - Name: string;  
-- Location: Location;  
+- OrganizerLocation: Location;  
 - PhoneNumber: string.  
 
 AgeLimit:  
@@ -76,16 +76,16 @@ AgeLimit:
 Ticket:  
 - Id;  
 - Event: Event;  
-- Status: Status (поле для хранения информации о состоянии билета, возможные значения: свободен для продажи, забронирован, оплачен);  
-- Category: Category(описание категории билета, цена);  
+- TicketStatus: Status (поле для хранения информации о состоянии билета, возможные значения: доступен для продажи, забронирован, оплачен);  
+- TicketCategory: Category(описание категории билета, цена);  
 - Row: int;  
 - Number: int.  
 
 Status:  
 - Id;  
 - Value: string (возможные значения билета: свободен для продажи, забронирован, оплачен).  
-
-TicketCategory:  
+  
+Category:  
 - Id;  
 - Price: double;  
 - Description: string.  
@@ -99,3 +99,38 @@ Purchase:
 - Id;  
 - Client: Client;  
 - Ticket: Ticket.  
+
+## Ticket Booking Library 
+### ControllerLibrary  
+### - TicketController 
+ **tickets: List<Ticket\>**   
+   
+ **categories: List<Category\>**  
+   
+ **Dictionary<string, int> GetCountOfFreeTickets(Event ev)**  
+ Метод для нахождения количества доступных билетов определенной категории. Возвращает словарь, где ключ - категория билета, значение - количество свободных билетов этой категории.  
+   
+ **int GetFirstFreeTicket(Event ev, Category ticketCategory)**  
+ Метод для выбора билета для бронирования. Возвращает Id первого доступного для бронирования билета определенной категории.
+   
+ **int BookTicket(int ticketId)**  
+ Метод для бронирования билета. Изменяет статус билета с "доступен" на "забронирован" и возвращает Id забронированного билета.
+   
+ **int BuyTicket(int ticketId)**  
+ Метод для покупки билета. Изменяет статус билета с "забронирован" на "приобретен" и возвращает Id приобретенного билета.
+ 
+### - TicketGenerationController  
+ **BackgroundImage: string**   
+ Является фоновым изображением всех билетов.  
+   
+ **string GenerationTicketPdf(Ticket ticket)**  
+ Метод, генерирующий билет в формате pdf и возвращающий путь, по котрому был сохренен данный билет. Для созданания pdf-документа используется itext7.2.5. Метод принимает один параметр: билет, свойства которого будут подставляться в общий шаблон билетa.       
+   
+***Шаблон билета***  
+  
+ <img src="https://github.com/SashaFfF/TicketBookingSystem/blob/Lab2/ticket%20template.jpg" width="400" height="590">  
+   
+ Метод будет вызываться при нажатии на кнопку "Получить билет".  
+    
+ **void SendEmail(string recipient, string ticketPath)**  
+ Метод для отправки билета на Email. Для реализации данного метода использован MailKit версии 3.6.0. Метод принимает два параметра: электроонную почту получателя (string recipient) и путь (string ticketPath), по которому был сохранен сгенерированный билет. Электронная почта получателя будет вводиться пользователем в текстовое поле Entry.  
