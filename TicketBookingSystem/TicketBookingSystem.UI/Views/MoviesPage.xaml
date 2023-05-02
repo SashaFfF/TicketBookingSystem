@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.MoviesPage"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:MoviesViewModel"
+             xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             Title="Кино">
+
+    <ScrollView>
+        <StackLayout Padding="60">
+            <Button Text="Загрузить все фильмы"
+                Command="{Binding InitEventsCommand}"/>
+
+            <HorizontalStackLayout>
+                <!--<Label Text="Сортировать по " FontSize="20" TextColor="White"/>-->
+                <DatePicker Format="d/mm/yyyy" TextColor="White">
+                    <DatePicker.MinimumDate>5/01/2023</DatePicker.MinimumDate>
+                    <DatePicker.MaximumDate>6/30/2023</DatePicker.MaximumDate>
+                </DatePicker>
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding Events}"
+                                ItemsLayout="VerticalGrid, 4">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Event">
+                        <Border Stroke="#0b0325"
+                                StrokeThickness="0.3"
+                                HeightRequest="650"
+                                WidthRequest="310"
+                                Padding="12"
+                                BackgroundColor="#0b0325">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <StackLayout>
+                                <Image Source="{Binding Poster}" Aspect="AspectFill"/>
+                                <Label Text="{Binding Name}" Padding="5" FontSize="20" FontAttributes="Bold" TextColor="White"/>
+                                <BoxView Color="Gray" HeightRequest="2"/>
+                                <Label Text="{Binding Date}" Padding="10" TextColor="White"/>
+                                <Button Text="Купить билет"
+                                        FontSize="15"
+                                        BorderColor="#0000CD"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MoviesViewModel}}, Path=GoToMovieCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+    
+    
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+</ContentPage>
