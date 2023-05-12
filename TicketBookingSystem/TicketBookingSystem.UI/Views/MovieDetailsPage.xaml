@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.MovieDetailsPage"
+             Title="{Binding SelectedEvent.Name}"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:MovieDetailsViewModel"
+             xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             Padding="30">
+
+    <VerticalStackLayout>
+        <Grid RowDefinitions="Auto"
+              ColumnDefinitions="Auto, Auto"
+              ColumnSpacing="30">
+            <VerticalStackLayout Grid.Column="1" Grid.Row="0">
+                <Label Text="{Binding SelectedEvent.Name}" 
+                       TextColor="White"
+                       FontSize="50"
+                       FontAttributes="Bold"
+                       Padding="0,0,0,60"/>
+                <Label Text="О фильме" 
+                       TextColor="GreenYellow"
+                       FontSize="25"
+                       Padding="0,0,0,10"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding SelectedEvent.Description}"
+                       LineBreakMode="WordWrap"
+                       MaxLines="5"
+                       TextColor="White"
+                       FontSize="16"/>
+                <Label Text="{Binding SelectedEvent.Date}"
+                       TextColor="White"
+                       Padding="0,40,0,10"/>
+                <Label Text="{Binding SelectedEvent.EventAgeLimit.Value}"/>
+                <Label Text="{Binding SelectedEvent.EventOrganizer.Name}"/>
+            </VerticalStackLayout>
+            <Image Source="{Binding SelectedEvent.Poster}"
+                   Aspect="AspectFill"
+                   Grid.Row="0"
+                   Grid.Column="0"/>
+        </Grid>
+        <VerticalStackLayout>
+            <Label Text="Расписание"
+                   FontSize="25" 
+                   TextColor="GreenYellow"
+                   Padding="0,30,0,10"
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding SelectedEvent.EventLocation.BuildingName}"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"/>
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+</ContentPage>

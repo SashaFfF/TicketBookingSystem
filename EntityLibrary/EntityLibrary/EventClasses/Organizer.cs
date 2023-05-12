@@ -9,9 +9,9 @@ namespace EntityLibrary.EventClasses
     public class Organizer
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public Location OrganizerLocation { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? Name { get; set; }
+        public Location? OrganizerLocation { get; set; }
+        public string? PhoneNumber { get; set; }
 
     }
 }

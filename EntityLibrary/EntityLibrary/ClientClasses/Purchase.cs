@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using EntityLibrary.TicketClasses;
 
-namespace EntityLibrary
+namespace EntityLibrary.ClientClasses
 {
     public class Purchase
     {
         public int Id { get; set; }
-        public Ticket Ticket { get; set; }
-        public Client Client { get; set; }
+        public Ticket? Ticket { get; set; }
+        public Client? Client { get; set; }
     }
 }

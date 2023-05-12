@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TicketBookingSystem.UI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TicketBookingSystem.UI"
+    xmlns:views="clr-namespace:TicketBookingSystem.UI.Views">
+
+    <ShellContent
+        Title="Кино"
+        Icon="movies_image.png"
+        ContentTemplate="{DataTemplate views:MoviesPage}"
+        Route="MoviesPage" />
+    <!--<ShellContent
+        Title="Концерты"
+        Icon="concerts_image.png"
+        ContentTemplate="{DataTemplate views:MoviesPage}"
+        Route="MoviesPage" />
+    <ShellContent
+        Title="Спектакли"
+        Icon="spectacle_image.png"
+        ContentTemplate="{DataTemplate views:MoviesPage}"
+        Route="MoviesPage" />
+    <ShellContent
+        Title="Выставки"
+        Icon="exhibitions_image.png"
+        ContentTemplate="{DataTemplate views:MoviesPage}"
+        Route="MoviesPage" />
+    <ShellContent
+        Title="Цирк"
+        Icon="circus_image.png"
+        ContentTemplate="{DataTemplate views:MoviesPage}"
+        Route="MoviesPage" />-->
+
+</Shell>
