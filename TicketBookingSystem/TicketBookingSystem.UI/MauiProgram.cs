@@ -5,6 +5,8 @@ using DataAccessLayer.Services;
 using DataLayer.Abstractions;
 using DataLayer.Data;
 using DataLayer.Repository;
+using EntityLibrary.EventClasses;
+using EntityLibrary.TicketClasses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -29,7 +31,7 @@ public static class MauiProgram
 
         var b = new ConfigurationBuilder();
         b.SetBasePath(Directory.GetCurrentDirectory());
-        b.AddJsonFile("D:\\oop\\TicketBookingSystem\\TicketBookingSystem.UI\\appsettings.json");
+        b.AddJsonFile("C:\\Users\\user\\Documents\\OOP\\TicketBookingSystem\\TicketBookingSystem.UI\\appsettings.json");
         var config = b.Build();
         builder.Configuration.AddConfiguration(config);
 
@@ -48,16 +50,33 @@ public static class MauiProgram
 	{
         //Services
         services.AddSingleton<IUnitOfWork, EfUnitOfWork>();
+
         services.AddSingleton<IEventService, EventService>();
         services.AddSingleton<ITicketService, TicketService>();
+        services.AddSingleton<ILocationService, LocationService>();
+        services.AddSingleton<ICategoryService, CategoryService>();
 
         //Views
         services.AddSingleton<MoviesPage>();
-		services.AddTransient<MovieDetailsPage>();
+        services.AddSingleton<ConcertsPage>();
+        services.AddSingleton<SpectaclePage>();
+        services.AddSingleton<ExhibitionsPage>();
+        services.AddSingleton<CircusPage>();
+
+        services.AddTransient<DetailsPage>();
+        services.AddTransient<PurchasePage>();
+        services.AddTransient<EmailPage>();
 
         //ViewModels
-		services.AddSingleton<MoviesViewModel>();
-		services.AddTransient<MovieDetailsViewModel>();
+        services.AddSingleton<ConcertsViewModel>();
+        services.AddSingleton<MoviesViewModel>();
+        services.AddSingleton<SpectacleViewModel>();
+        services.AddSingleton<ExhibitionsViewModel>();
+        services.AddSingleton<CircusViewModel>();
+
+		services.AddTransient<DetailsViewModel>();
+        services.AddTransient<PurchaseViewModel>();
+        services.AddTransient<EmailViewModel>();
     }
 
     //метод, добавляющий контекст базы данных в качестве сервиса
@@ -98,20 +117,18 @@ public static class MauiProgram
 
         //Add sights
         //int k = 1;
-        //foreach (var route in routes)
+        //for(int i=1; i<=8; i++)
         //{
-        //    for (int i = 1; i < 10; i++)
+        //    for (int j = 1; j <= 10; j++)
         //    {
-        //        await unitOfWork.SightRepository.AddAsync(new Sight()
+        //        await unitOfWork.TicketRepository.AddAsync(new Ticket()
         //        {
-        //            Name = $"Sight{k++}",
-        //            TouristRoute = route,
-        //            Place = $"Place{k}",
-        //            TicketPrice = k
-        //        });
+        //            EventId = i
+        //        }); ;
         //    }
         //}
-        //await unitOfWork.SaveAllAsync();
+            
+        await unitOfWork.SaveAllAsync();
 
     }
 }

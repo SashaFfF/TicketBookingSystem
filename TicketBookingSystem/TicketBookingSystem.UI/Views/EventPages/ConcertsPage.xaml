@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TicketBookingSystem.UI.Views.MoviesPage"
+             x:Class="TicketBookingSystem.UI.Views.ConcertsPage"
              xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
-             x:DataType="viewmodel:MoviesViewModel"
+             x:DataType="viewmodel:ConcertsViewModel"
              xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
-             Title="Кино">
+             Title="Концерты">
 
     <ScrollView>
         <StackLayout Padding="60">
             <Button Text="Загрузить все фильмы"
-                Command="{Binding InitEventsCommand}"/>
+                Command="{Binding GetListOfEventsCommand}"/>
 
             <HorizontalStackLayout>
                 <!--<Label Text="Сортировать по " FontSize="20" TextColor="White"/>-->
-                <DatePicker Format="d/mm/yyyy" TextColor="White">
-                    <DatePicker.MinimumDate>5/01/2023</DatePicker.MinimumDate>
-                    <DatePicker.MaximumDate>6/30/2023</DatePicker.MaximumDate>
-                </DatePicker>
+                <Label Text="Дата: "
+                       FontSize="20"
+                       TextColor="White"
+                       Padding="10"/>
+                <DatePicker MinimumDate="{Binding MinDate}"
+                            MaximumDate="{Binding MaxDate}"
+                            Date="{Binding SelectedDate}"
+                            Format="d/mm/yyyy"
+                            TextColor="White"/>
+                <Label Text="Город: "
+                       FontSize="20"
+                       TextColor="White"
+                       Padding="10"/>
+                <Picker SelectedItem="{Binding SelectedCity}"
+                        TextColor="White">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Минск</x:String>
+                            <x:String>Брест</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label Text="{Binding SelectedDate}"/>
+                <Label Text="{Binding SelectedCity}"/>
             </HorizontalStackLayout>
 
             <CollectionView ItemsSource="{Binding Events}"
@@ -41,7 +61,7 @@
                                 <Button Text="Купить билет"
                                         FontSize="15"
                                         BorderColor="#0000CD"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MoviesViewModel}}, Path=GoToMovieCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ConcertsViewModel}}, Path=GoToDetailsCommand}"
                                         CommandParameter="{Binding .}"/>
                             </StackLayout>
                         </Border>
@@ -50,8 +70,8 @@
             </CollectionView>
         </StackLayout>
     </ScrollView>
-    
-    
+
+
     <ContentPage.Background>
         <LinearGradientBrush EndPoint="0,1">
             <GradientStop Color="#041b61"

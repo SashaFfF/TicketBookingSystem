@@ -10,7 +10,7 @@ namespace EntityLibrary.TicketClasses
     public class Ticket
     {
         public int Id { get; set; }
-        public Event? Event { get; set; }
+        public Event Event { get; set; }
         public Category? TicketCategory { get; set; }
         public Status? TicketStatus { get; set; }
         public int Row { get; set; }

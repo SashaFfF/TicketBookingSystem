@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.EmailPage"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:EmailViewModel"
+             Title=" ">
+
+    <ContentPage.Resources>
+        <Style x:Key="NextButton" TargetType="Button">
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="WidthRequest" Value="125" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightGreen" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Focused">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Gray" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout>
+        <Label Text="Для получения билета введите ваш адрес электронной почты и номер телефона"
+               FontSize="40"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Margin="60"/>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="E-mail:"
+                   TextColor="White"
+                   FontSize="Large"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Entry x:Name="emailEntry"
+                   Text="{Binding Email}"
+                   TextColor="White"
+                   FontSize="16"
+                   HorizontalOptions="End"
+                   Placeholder="example@gmail.com"
+                   WidthRequest="400"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="600"
+                               Margin="30">
+            <Label Text="Телефон:"
+                   TextColor="White"
+                   FontSize="Large"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,10,30,0"/>
+            <Entry x:Name="phoneEntry"
+                   TextColor="White"
+                   FontSize="16"
+                   Text="{Binding PhoneNumber}"
+                   Placeholder="+375YYXXXXXXX"
+                   HorizontalOptions="End"
+                   WidthRequest="400"/>
+        </HorizontalStackLayout>
+        <Button Text="Далее"
+                Style="{StaticResource NextButton}">
+            <Button.Triggers>
+                <DataTrigger Binding="{Binding Source={x:Reference phoneEntry}, Path=Text.Length}"
+                             TargetType="Button"
+                             Value="0">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+    </VerticalStackLayout>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+</ContentPage>

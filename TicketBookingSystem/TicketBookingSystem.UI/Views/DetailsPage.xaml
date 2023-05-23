@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.DetailsPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:DetailsViewModel"
+             xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             xmlns:schedule="clr-namespace:EntityLibrary;assembly=EntityLibrary"
+             xmlns:local="clr-namespace:TicketBookingSystem.UI.Views"
+             xmlns:converter="clr-namespace:TicketBookingSystem.UI.Converter"
+             Padding="30"
+             Title="{Binding SelectedEvent.Name}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding InitScheduleCommand}"/>
+    </ContentPage.Behaviors>
+
+    <!--<ContentPage.Resources>
+        <local:MyParameter x:Key="myParams" Loa
+    </ContentPage.Resources>-->
+
+    <ContentPage.Resources>
+        <converter:DateTimeAndLocationConverter x:Key="DateTimeAndLocationConverter"/>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Grid RowDefinitions="Auto"
+              ColumnDefinitions="Auto, Auto"
+              ColumnSpacing="30">
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0">
+                    <Label Text="{Binding SelectedEvent.Name}" 
+                       TextColor="White"
+                       FontSize="50"
+                       FontAttributes="Bold"
+                       Padding="0,0,0,60"/>
+                    <Label Text="О фильме" 
+                           TextColor="GreenYellow"
+                           FontSize="28"
+                       Padding="0,0,0,10"
+                       FontAttributes="Bold"/>
+                    <Label Text="{Binding SelectedEvent.Description}"
+                       LineBreakMode="WordWrap"
+                       MaxLines="5"
+                       TextColor="White"
+                       FontSize="20"/>
+                    <Label Text="{Binding SelectedEvent.Date}"
+                       TextColor="White"
+                       Padding="0,40,0,10"/>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding SelectedEvent.EventAgeLimit.Value}"
+                                  TextColor="White"/>
+                                <Span Text="+"
+                                  TextColor="White"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding SelectedEvent.EventOrganizer.Name}"/>
+                </VerticalStackLayout>
+                <Image Source="{Binding SelectedEvent.Poster}"
+                   Aspect="AspectFill"
+                   Grid.Row="0"
+                   Grid.Column="0">
+                </Image>
+            </Grid>
+
+            <Label Text="Расписание"
+                   FontSize="30" 
+                   TextColor="GreenYellow"
+                   Padding="0,30,0,10"
+                   FontAttributes="Bold"/>
+            <CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            Margin="0,0,0,40">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="schedule:Schedule">
+                        <VerticalStackLayout>
+                            <Grid RowDefinitions="*"
+                                  ColumnDefinitions="*, *"
+                                  ColumnSpacing="30">
+                                <Label Text="{Binding Location.BuildingName}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       TextColor="White"
+                                       FontSize="28"/>
+                                <Border StrokeThickness="4"
+                                        StrokeShape="RoundRectangle 40,0,0,40"
+                                        Background="#2B0B98"
+                                        Padding="2,3,7,3"
+                                        HorizontalOptions="Start"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="0,5,0,0">
+                                    <Border.Stroke>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Color="Green"
+                                                          Offset="0.1" />
+                                            <GradientStop Color="GreenYellow"
+                                                          Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Stroke>
+                                    <Button Text="Посмотреть доступные сеансы"
+                                            FontAttributes="Bold"
+                                            BackgroundColor="#2B0B98"
+                                            FontSize="18"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoToNextPageCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                </Border>
+                            </Grid>
+                            <Label Padding="0,0,0,20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Location.City}"
+                                              TextColor="White"/>
+                                        <Span Text=", "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.Street}"
+                                              TextColor="White"/>
+                                        <Span Text=" "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.BuildingNumber}"
+                                              TextColor="White"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+</ContentPage>
+
+<!--Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoToPurchaseCommand}"
+                                                    CommandParameter="{Binding .}"-->
+
+
+
+<!--<CollectionView ItemsSource="{Binding Schedules}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="schedule:Schedule">
+                        <StackLayout>
+                            <Label Text="{Binding Location.City}"/>
+                            <CollectionView ItemsSource="{Binding DateTimes}">
+                                <CollectionView.Item
+                            </CollectionView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+            </CollectionView>-->
+
+<!--<CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="schedule:Schedule">
+                            <Label Text="{Binding Location.BuildingName}"
+                                   TextColor="White"
+                                   FontSize="25"/>
+                            <CollectionView ItemsSource="{Binding DateTimes}"
+                                            SelectionMode="Single"
+                                            SelectedItem="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=SelectedDateTime}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoNextCommand}"
+                                                CommandParameter="{Binding DateTimes, Converter={StaticResource DateTimeAndLocationConverter}}"
+                                                Text="{Binding .}"
+                                                TextColor="White"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+
+
+<!--<CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="schedule:Schedule">
+                            <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoNextCommand}"
+                                    CommandParameter="{Binding DateTimes, Converter={StaticResource DateTimeAndLocationConverter}}">
+                                <Button.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="." />
+                                        <Binding Path="Location.BuildingName" />
+                                    </MultiBinding>
+                                </Button.Text>
+                            </Button>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+
+
+
+<!--<CollectionView ItemsSource="{Binding Schedules}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="schedule:Schedule">
+                        <VerticalStackLayout>
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Location.BuildingName}"
+                                       TextColor="White"
+                                       FontSize="28"/>
+                                <Border StrokeThickness="4"
+                                        StrokeShape="RoundRectangle 40,0,0,40"
+                                        Background="#2B0B98"
+                                        Padding="2,3,7,3"
+                                        HorizontalOptions="Center"
+                                        Margin="30,0,0,0">
+                                    <Border.Stroke>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Color="Green"
+                                                          Offset="0.1" />
+                                            <GradientStop Color="GreenYellow"
+                                                          Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Stroke>
+                                    <Button Text="Посмотреть доступные сеансы"
+                                            FontAttributes="Bold"
+                                            BackgroundColor="#2B0B98"
+                                            FontSize="18"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                            <Label Padding="0,0,0,20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Location.City}"
+                                              TextColor="White"/>
+                                        <Span Text=", "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.Street}"
+                                              TextColor="White"/>
+                                        <Span Text=" "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.BuildingNumber}"
+                                              TextColor="White"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>-->
+
+
+<!--<CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="schedule:Schedule">
+                            <CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoToPurchaseCommand}"
+        CommandParameter="{Binding DateTimes, Converter={StaticResource DateTimeAndLocationConverter}}">
+                                            <Button.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="." />
+                                                    <Binding Path="Location.BuildingName" />
+                                                </MultiBinding>
+                                            </Button.Text>
+                                        </Button>
+
+                                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView ItemsSource="{Binding Schedules}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="schedule:Schedule">
+                        <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoNextCommand}"
+                                CommandParameter="{Binding DateTimes, Converter={StaticResource DateTimeAndLocationConverter}}"
+                                Text="blabla">
+                        </Button>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>-->
+
+
+<!--<Label Text="{Binding Source={x:Reference outerCollectionView}, Path=SelectedItem, StringFormat='Selected: {0}'}"/>
+            
+
+            <CollectionView x:Name="outerCollectionView"
+                            ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="schedule:Schedule">
+                        <StackLayout>
+                            <Label Text="{Binding Location.BuildingName}"
+                                   FontSize="20"
+                                   TextColor="White"/>
+                            <Label Padding="0,0,0,20">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Location.City}"
+                                              TextColor="White"/>
+                                        <Span Text=", "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.Street}"
+                                              TextColor="White"/>
+                                        <Span Text=" "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.BuildingNumber}"
+                                              TextColor="White"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <CollectionView x:Name="innerCollectionView"
+                                            ItemsSource="{Binding DateTimes}"
+                                            
+                                            SelectionMode="Single"
+                                            SelectedItem="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=SelectedDateTime}"
+                                            >
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <Border StrokeThickness="4"
+                                                StrokeShape="RoundRectangle 40,0,0,40"
+                                                Background="#2B0B98"
+                                                Padding="8,3,8,3"
+                                                HorizontalOptions="Center">
+                                            <Border.Stroke>
+                                                <LinearGradientBrush EndPoint="0,1">
+                                                    <GradientStop Color="Green"
+                                                                  Offset="0.1" />
+                                                    <GradientStop Color="GreenYellow"
+                                                                  Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Stroke>
+                                            <Button Text="{Binding .}"
+                                                    FontAttributes="Bold"
+                                                    BackgroundColor="#2B0B98"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DetailsViewModel}}, Path=GoToPurchaseCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    FontSize="16"/>
+                                        </Border>
+
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+
+<!--<CollectionView ItemsSource="{Binding Schedules}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedSchedule}"
+                            SelectionChangedCommand="{Binding GoNextCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedSchedule}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="schedule:Schedule">
+                            <Label Text="{Binding Location.BuildingName}"
+                                   TextColor="White"
+                                   FontSize="25"/>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Location.City}"
+                                              TextColor="White"/>
+                                        <Span Text=", "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.Street}"
+                                              TextColor="White"/>
+                                        <Span Text=" "
+                                              TextColor="White"/>
+                                        <Span Text="{Binding Location.BuildingNumber}"
+                                              TextColor="White"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->

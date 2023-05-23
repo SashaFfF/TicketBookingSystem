@@ -36,7 +36,7 @@ namespace DataLayer.Repository
             return await _entities.FirstOrDefaultAsync(filter, cancellationToken);
         }
 
-        public async Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default, params Expression<Func<T, object>>[] includesProperties)
+        public async Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _entities.FindAsync(id, cancellationToken);
         }
@@ -46,23 +46,9 @@ namespace DataLayer.Repository
             return await _entities.ToListAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> ListAsync(Expression<Func<T, bool>> filter,
-                                                      CancellationToken cancellationToken = default,
-                                                      params Expression<Func<T, object>>[] includesProperties)
+        public async Task<IReadOnlyList<T>> ListAsync(Func<T, bool> filter)
         {
-            IQueryable<T>? query = _entities.AsQueryable();
-            if (includesProperties.Any())
-            {
-                foreach (Expression<Func<T, object>>? included in includesProperties)
-                {
-                    query = query.Include(included);
-                }
-            }
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-            return await query.ToListAsync();
+            return await Task.Run(() => _entities.Where(filter).ToList());
         }
 
         public Task UpdateAsync(T entity, CancellationToken cancellationToken = default)

@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstractions;
 using DataLayer.Abstractions;
+using EntityLibrary.EventClasses;
 using EntityLibrary.TicketClasses;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,26 @@ namespace DataAccessLayer.Services
         {
             await unitOfWork.TicketRepository.UpdateAsync(item);
             return item;
+        }
+
+        ////
+        public async Task<IEnumerable<Ticket>> GetTicketsListByEvent(Event ev)
+        {
+            return await unitOfWork.TicketRepository.ListAsync(t => t.Event == ev );
+        }
+
+        public async Task<Dictionary<Category, int>> GetCountOfFreeTicketsByCategory(Event ev, List<Category> categories, string ticketStatusValue)
+        {
+            Dictionary<Category, int> freeTicketsInCategory = new Dictionary<Category, int>();
+            var tickets = await GetTicketsListByEvent(ev);
+            int freeTicketsCount = 0;
+            foreach(Category category in categories)
+            {
+                freeTicketsCount = tickets.Where(t => t.TicketCategory == category && t.TicketStatus.Value == ticketStatusValue).Count();
+                freeTicketsInCategory.Add(category, freeTicketsCount);
+                freeTicketsCount = 0;
+            }
+            return freeTicketsInCategory;
         }
     }
 }

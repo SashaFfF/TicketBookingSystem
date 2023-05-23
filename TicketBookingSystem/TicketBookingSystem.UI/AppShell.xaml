@@ -11,25 +11,25 @@
         Icon="movies_image.png"
         ContentTemplate="{DataTemplate views:MoviesPage}"
         Route="MoviesPage" />
-    <!--<ShellContent
+    <ShellContent
         Title="Концерты"
         Icon="concerts_image.png"
-        ContentTemplate="{DataTemplate views:MoviesPage}"
-        Route="MoviesPage" />
+        ContentTemplate="{DataTemplate views:ConcertsPage}"
+        Route="ConcertsPage" />
     <ShellContent
         Title="Спектакли"
         Icon="spectacle_image.png"
-        ContentTemplate="{DataTemplate views:MoviesPage}"
-        Route="MoviesPage" />
+        ContentTemplate="{DataTemplate views:SpectaclePage}"
+        Route="SpectaclePage" />
     <ShellContent
         Title="Выставки"
         Icon="exhibitions_image.png"
-        ContentTemplate="{DataTemplate views:MoviesPage}"
-        Route="MoviesPage" />
+        ContentTemplate="{DataTemplate views:ExhibitionsPage}"
+        Route="ExhibitionsPage" />
     <ShellContent
         Title="Цирк"
         Icon="circus_image.png"
-        ContentTemplate="{DataTemplate views:MoviesPage}"
-        Route="MoviesPage" />-->
+        ContentTemplate="{DataTemplate views:CircusPage}"
+        Route="CircusPage" />
 
 </Shell>
