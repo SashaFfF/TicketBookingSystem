@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="DataAccessLayer">
+    <Position X="9.582" Y="1.25" Height="0.291" Width="1.168" />
+  </Comment>
+  <Class Name="DataAccessLayer.Services.AgeLimitService" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAGAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\AgeLimitService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccessLayer.Services.CategoryService" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAGAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\CategoryService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccessLayer.Services.LocationService" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAGAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\LocationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccessLayer.Services.OrganizerService" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAGAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\OrganizerService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccessLayer.Services.StatusService" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAGAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Services\StatusService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DataAccessLayer.Services.TicketService" BaseTypeListCollapsed="true">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAAAAAAAAAAAAAAAGAAEAAAAgAAAQAAAAAIIA=</HashCode>
+      <FileName>Services\TicketService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="DataAccessLayer.Abstractions.IAgeLimitService">
+    <Position X="2" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IAgeLimitService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.IBaseService&lt;T&gt;">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Abstractions\IBaseService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.ICategoryService">
+    <Position X="10.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\ICategoryService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.IEventService">
+    <Position X="3.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAACAAAQAAAEAAIAAAEAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IEventService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.ILocationService">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\ILocationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.IOrganizerService">
+    <Position X="12.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IOrganizerService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.IStatusService">
+    <Position X="5.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstractions\IStatusService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DataAccessLayer.Abstractions.ITicketService">
+    <Position X="9" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Abstractions\ITicketService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

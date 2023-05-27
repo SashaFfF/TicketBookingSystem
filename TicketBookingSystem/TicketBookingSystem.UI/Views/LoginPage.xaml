@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.LoginPage"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:LoginViewModel"
+             Title="LoginPage">
+
+    <VerticalStackLayout>
+        <Label Text="Вход"
+               FontSize="40"
+               TextColor="White"
+               HorizontalOptions="Center"
+               Margin="60"/>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="Имя:"
+                   TextColor="White"
+                   FontSize="Large"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Entry x:Name="nameEntry"
+                   Text="{Binding AdminName}"
+                   HorizontalOptions="End"
+                   WidthRequest="400">
+            </Entry>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="600"
+                               Margin="30">
+            <Label Text="Пароль:"
+                   TextColor="White"
+                   FontSize="Large"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,10,30,0"/>
+            <Entry x:Name="passwordEntry"
+                   Text="{Binding AdminPassword}"
+                   TextColor="White"
+                   FontSize="16"
+                   HorizontalOptions="End"
+                   WidthRequest="350"/>
+        </HorizontalStackLayout>
+        <Button Text="Зайти как администратор"
+                Clicked="AlertButton_Clicked">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding Source={x:Reference nameEntry}, Path=Text}"
+                             Value="admin">
+                    <Setter Property="IsEnabled" Value="True" />
+                    <Setter Property="BackgroundColor" Value="GreenYellow"/>
+                    <Setter Property="TextColor" Value="White"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+    </VerticalStackLayout>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+</ContentPage>

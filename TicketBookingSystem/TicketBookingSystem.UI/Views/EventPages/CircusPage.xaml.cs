@@ -4,9 +4,9 @@ namespace TicketBookingSystem.UI.Views;
 
 public partial class CircusPage : ContentPage
 {
-	public CircusPage(CircusViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext= vm;
-	}
+    public CircusPage(CircusViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
+    }
 }

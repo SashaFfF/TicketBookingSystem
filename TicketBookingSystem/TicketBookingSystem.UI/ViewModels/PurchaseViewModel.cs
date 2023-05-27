@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ControllerLibrary;
 using DataAccessLayer.Abstractions;
-using EntityLibrary;
-using EntityLibrary.EventClasses;
 using EntityLibrary.TicketClasses;
+using iText.StyledXmlParser.Jsoup.Helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,115 +14,85 @@ using TicketBookingSystem.UI.Views;
 
 namespace TicketBookingSystem.UI.ViewModels
 {
-    [QueryProperty("SelectedSchedule", "SelectedSchedule")]
-    [QueryProperty("SelectedEvent", "SelectedEvent")]
+    [QueryProperty("SelectedTicket", "SelectedTicket")]
+    [QueryProperty("UserEmail", "UserEmail")]
+    [QueryProperty("PhoneNumber", "PhoneNumber")]
     public partial class PurchaseViewModel: ObservableObject
     {
-        private readonly IEventService _eventService;
-        private readonly ITicketService _ticketService;
-        private readonly ICategoryService _categoryService;
-
-        [ObservableProperty]
-        public Event selectedEvent;
-        [ObservableProperty]
-        public Schedule selectedSchedule;
-
-        [ObservableProperty]
-        public DateTime selectedTime;
-
-        [ObservableProperty]
-        public Event selectedEvent1;
-        [ObservableProperty]
-        public Event selectedEvent2;
-        [ObservableProperty]
-        public Event selectedEvent3;
-        [ObservableProperty]
-        public DateTime selectedDate1;
-        public PurchaseViewModel(IEventService eventService, ITicketService ticketService, ICategoryService categoryService)
+        ITicketService _ticketService;
+        IStatusService _statusService;
+        public PurchaseViewModel(ITicketService ticketService, IStatusService statusService)
         {
-            _eventService = eventService;
             _ticketService = ticketService;
-            _categoryService = categoryService;
+            _statusService = statusService;
         }
 
-        public ObservableCollection<DateTime> DateTimes { get; set; } = new();
-        public List<Category> Categories { get; set; } = new();
-        public ObservableCollection<Ticket> AllTickets { get; set; } = new();
-        public ObservableCollection<TicketAllocation> TicketAllocation { get; set; } = new();
-        
-        //создам временно list, а не observablecollection, чтобы закинуть список в метод получения словаря, и если привязка будет работать с листом, а не osrvablecollection, то оставляю список
+        [ObservableProperty]
+        public string userEmail;
+        [ObservableProperty]
+        public string phoneNumber;
+        [ObservableProperty]
+        public Ticket selectedTicket;
 
-        //commands
+        [ObservableProperty]
+        public string cardNumber;
+        [ObservableProperty]
+        public string cardholderName;
+        [ObservableProperty]
+        public string validityPeriod_month;
+        [ObservableProperty]
+        public DateTime validityPeriod_year;
+        [ObservableProperty]
+        public string verificationNumber;
+
+
+        public ObservableCollection<string> Months { get; set; } = new();
+        public ObservableCollection<string> Years { get; set; } = new();
 
         [RelayCommand]
-        public async void InitStartData()
+        void InitStartData()
         {
-            SelectedEvent1 = await _eventService.GetfirstByName(SelectedEvent.Name);
-            SelectedEvent2 = await _eventService.GetFirstByNameLocation(SelectedEvent.Name, SelectedSchedule.Location);
-            SelectedDate1 = new DateTime(2023, 5, 22, 17, 00, 00);
-            SelectedEvent3 = await _eventService.GetFirstOrDefaultAsync(SelectedEvent.Name, SelectedSchedule.Location, SelectedDate1);
-            await GetCategories();
-
-            GetDateTimes();
+            GetMonths();
+            GetYears();
         }
 
         [RelayCommand]
-        async Task GoToNextPage()
+        public async Task GoToNextPage()
         {
-            await Shell.Current.GoToAsync(nameof(EmailPage));
+            await BuyTicket();
+            string ticketPath = TicketGenerationController.GenerationTicketPdf(SelectedTicket);
+            TicketGenerationController.SendEmail(UserEmail, ticketPath);
+            await Shell.Current.GoToAsync(nameof(ResultPage));
         }
 
-
-        //
-        public async Task GetCategories()
+        void GetMonths()
         {
-            var categories = await _categoryService.GetAllAsync();
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            for(int i = 1; i<=12; i++)
             {
-                Categories.Clear();
-                foreach (var category in categories)
+                if (i <= 9)
                 {
-                    Categories.Add(category);
+                    Months.Add($"0{i}");
                 }
-            });
-        }
-
-        public async Task GetTickets()
-        {
-            var ev = await _eventService.GetFirstOrDefaultAsync(SelectedEvent.Name, SelectedSchedule.Location, SelectedTime);
-            var tickets = await _ticketService.GetTicketsListByEvent(ev);
-            await MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                AllTickets.Clear();
-                foreach (var t in tickets)
+                else
                 {
-                    AllTickets.Add(t);
+                    Months.Add(i.ToString());
                 }
-            });
-        }
-
-        public void GetDateTimes()
-        {
-            DateTimes.Clear();
-            foreach (var dateTime in SelectedSchedule.DateTimes)
-            {
-                DateTimes.Add(dateTime);
             }
         }
-
-        public async Task GetFreeTicketsByCategory()
+        void GetYears()
         {
-            var ev = await _eventService.GetFirstOrDefaultAsync(SelectedEvent.Name, SelectedSchedule.Location, SelectedTime);
-            var dictionary = await _ticketService.GetCountOfFreeTicketsByCategory(ev, Categories, "Свободно");
-            await MainThread.InvokeOnMainThreadAsync(() =>
+            for(int i=0; i<6; i++)
             {
-                TicketAllocation.Clear();
-                foreach (var d in dictionary)
-                {
-                    TicketAllocation.Add(new TicketAllocation(d.Key, d.Value));
-                }
-            });
+                Years.Add((2023+i).ToString());
+            }
+
         }
-        
+        async Task BuyTicket()
+        {
+            var new_status = await _statusService.GetByIdAsync(3);
+            selectedTicket.TicketStatus = new_status;
+            await _ticketService.UpdateAsync(selectedTicket);
+        }
+
     }
 }

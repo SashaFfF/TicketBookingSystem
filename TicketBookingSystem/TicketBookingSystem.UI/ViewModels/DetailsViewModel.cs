@@ -65,12 +65,23 @@ namespace TicketBookingSystem.UI.ViewModels
 
         public async Task GetSchedule()
         {
+            //var schedule = await _eventService.GetScheduleAsync(SelectedEvent.EventType.Type, SelectedEvent.Name, SelectedEvent.EventLocation.City, SelectedEvent.Date);
+            //Schedules.Clear();
+            //foreach (var s in schedule)
+            //{
+            //    Schedules.Add(new Schedule(s.Key, s.Value));
+            //}
+
+
             var schedule = await _eventService.GetScheduleAsync(SelectedEvent.EventType.Type, SelectedEvent.Name, SelectedEvent.EventLocation.City, SelectedEvent.Date);
-            Schedules.Clear();
-            foreach (var s in schedule)
+            await MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Schedules.Add(new Schedule(s.Key, s.Value));
-            }
+                Schedules.Clear();
+                foreach (var s in schedule)
+                {
+                    Schedules.Add(new Schedule(s.Key, s.Value));
+                }
+            });
         }
 
 
@@ -92,7 +103,7 @@ namespace TicketBookingSystem.UI.ViewModels
                 {"SelectedSchedule", schedule},
                 {"SelectedEvent", this.SelectedEvent}
             };
-            await Shell.Current.GoToAsync($"{nameof(PurchasePage)}", navigationParameter);
+            await Shell.Current.GoToAsync($"{nameof(TicketSelectionPage)}", navigationParameter);
         }
 
 

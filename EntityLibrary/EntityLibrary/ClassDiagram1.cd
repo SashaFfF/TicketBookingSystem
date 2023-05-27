@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="EntityLibrary">
+    <Position X="6.633" Y="2.533" Height="0.392" Width="0.9" />
+  </Comment>
+  <Class Name="EntityLibrary.Schedule">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Schedule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.TicketAllocation">
+    <Position X="2" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>TicketAllocation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.ClientClasses.Client">
+    <Position X="2" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ClientClasses\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.EventClasses.AgeLimit">
+    <Position X="10.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>EventClasses\AgeLimit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.EventClasses.Event">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQCAAAAAAAkAAAAAAAAAAQEAIAAEAABAAAAAAAAAAA=</HashCode>
+      <FileName>EventClasses\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.EventClasses.EventType">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>EventClasses\EventType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.EventClasses.Location">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAIAAAAAAAAAAAAAAAAAAIAAAAAAAQ=</HashCode>
+      <FileName>EventClasses\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.EventClasses.Organizer">
+    <Position X="9" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAQAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>EventClasses\Organizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.TicketClasses.Category">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TicketClasses\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.TicketClasses.Status">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>TicketClasses\Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityLibrary.TicketClasses.Ticket">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAgAAAAAAEAAABAAAgAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>TicketClasses\Ticket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

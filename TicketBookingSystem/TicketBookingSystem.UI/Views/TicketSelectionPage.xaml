@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.TicketSelectionPage"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
+             x:DataType="viewmodel:TicketSelectionViewModel"
+             xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             xmlns:ticketmodel ="clr-namespace:EntityLibrary.TicketClasses;assembly=EntityLibrary"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:schedule="clr-namespace:EntityLibrary;assembly=EntityLibrary"
+             Title="Покупка билетов">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding InitStartDataCommand}"/>
+    </ContentPage.Behaviors>
+
+    <!--<ContentPage.Resources>
+        <ControlTemplate x:Key="RadioButtonTemplate">
+            <Border Stroke="#FF00008B"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor="#FF0000FF"
+                    HeightRequest="40"
+                    WidthRequest="180"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="10">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="Stroke"
+                                            Value="#FF3300" />
+                                    <Setter TargetName="check"
+                                            Property="Opacity"
+                                            Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="#F3F2F1" />
+                                    <Setter Property="Stroke"
+                                            Value="#F3F2F1" />
+                                    <Setter TargetName="check"
+                                            Property="Opacity"
+                                            Value="0" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Grid Margin="4"
+                      WidthRequest="90">
+                    <Grid Margin="0,0,4,0"
+                          WidthRequest="18"
+                          HeightRequest="18"
+                          HorizontalOptions="End"
+                          VerticalOptions="Start">
+                        <Ellipse Stroke="Blue"
+                                 Fill="White"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center" />
+                        <Ellipse x:Name="check"
+                                 Fill="Blue"
+                                 WidthRequest="8"
+                                 HeightRequest="8"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center" />
+                    </Grid>
+                    <ContentPresenter />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="ControlTemplate"
+                    Value="{StaticResource RadioButtonTemplate}" />
+        </Style>
+    </ContentPage.Resources>-->
+
+    <VerticalStackLayout>
+        <Border Stroke="Black"
+                Margin="220,70,220,70">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#110313"
+                                  Offset="0.1"/>
+                    <GradientStop Color="#010001"
+                                  Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Shadow>
+                <Shadow Brush="Black"
+                Offset="10,10"
+                Opacity="0.8" />
+            </Border.Shadow>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="30" />
+            </Border.StrokeShape>
+            <StackLayout>
+                <Label HorizontalOptions="Center"
+                       Padding="40">
+                    <Label.FormattedText>
+                        <FormattedString >
+                            <Span Text="{Binding SelectedEvent.Name}"
+                                  TextColor="White"
+                                  FontSize="50"/>
+                            <Span Text=" ("
+                                  TextColor="White"
+                                  FontSize="50"/>
+                            <Span Text="{Binding SelectedEvent.EventAgeLimit.Value}"
+                                  TextColor="White"
+                                  FontSize="50"/>
+                            <Span Text="+)"
+                                  TextColor="White"
+                                  FontSize="50"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Text="Доступные сеансы:"
+                       TextColor="White"
+                       FontSize="24"
+                       Margin="20,0,10,0"/>
+
+                <CollectionView ItemsSource="{Binding DateTimes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout>
+                                <Border StrokeThickness="4"
+                                    Padding="2,3,7,3"
+                                    HorizontalOptions="Start"
+                                    Margin="30,20,30,20"
+                                    WidthRequest="200"
+                                    HeightRequest="80">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15" />
+                                    </Border.StrokeShape>
+                                    <Border.Stroke>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Color="Green"
+                                                          Offset="0.1" />
+                                            <GradientStop Color="GreenYellow"
+                                                          Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Border.Stroke>
+                                    <RadioButton Value="{Binding .}"
+                                             Content="{Binding .}"
+                                             TextColor="White"
+                                             FontSize="17"
+                                             GroupName="times"
+                                             CheckedChanged="RadioButtonCheckedChangedAsync"
+                                             Margin="2"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                            
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <CollectionView ItemsSource="{Binding Categories}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="ticketmodel:Category">
+                            <Label Text="{Binding Description}"
+                                   TextColor="White"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="Выберите билет нужной категории:"
+                       IsVisible="{Binding IsVisibleLabel}"
+                       TextColor="White"
+                       FontSize="24"
+                       Margin="20,0,10,0"/>
+
+                <CollectionView ItemsSource="{Binding TicketAllocation}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="schedule:TicketAllocation">
+                            <HorizontalStackLayout>
+
+                                <RadioButton Content="{Binding Category.Description}"
+                                             Value="{Binding Category}"
+                                             TextColor="White"
+                                             FontSize="17"
+                                             GroupName="categories"
+                                             CheckedChanged="CategoryRadioButtonChangedAsync"/>
+                                <Label Margin="0,8,0,0">
+                                    <Label.FormattedText>
+                                        <FormattedString >
+                                            <Span Text=" (Количество доступных билетов: "
+                                                  TextColor="White"
+                                                  FontSize="18"/>
+                                            <Span Text="{Binding Count}"
+                                                  TextColor="White"
+                                                  FontSize="18"/>
+                                            <Span Text=")"
+                                                  TextColor="White"
+                                                  FontSize="18"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button Text="Купить"
+                        IsVisible="{Binding IsVisible}"
+                        Command="{Binding GoToNextPageCommand}"/> 
+            </StackLayout>
+        </Border>
+        
+        
+    </VerticalStackLayout>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+</ContentPage>

@@ -20,6 +20,7 @@ namespace DataAccessLayer.Services
         public async Task<Ticket> AddAsync(Ticket item)
         {
             await unitOfWork.TicketRepository.AddAsync(item);
+            unitOfWork.SaveAllAsync();
             return item;
         }
 
@@ -27,6 +28,7 @@ namespace DataAccessLayer.Services
         {
             Ticket ticket = await GetByIdAsync(id);
             await unitOfWork.TicketRepository.DeleteAsync(ticket);
+            unitOfWork.SaveAllAsync();  
             return ticket;
         }
 
@@ -43,6 +45,7 @@ namespace DataAccessLayer.Services
         public async Task<Ticket> UpdateAsync(Ticket item)
         {
             await unitOfWork.TicketRepository.UpdateAsync(item);
+            unitOfWork.SaveAllAsync();
             return item;
         }
 
@@ -64,6 +67,12 @@ namespace DataAccessLayer.Services
                 freeTicketsCount = 0;
             }
             return freeTicketsInCategory;
+        }
+
+        public async Task<Ticket> GetFirstOrDefaultTicket(Event ev, Category category, string status)
+        {
+            var tickets = await GetTicketsListByEvent(ev);
+            return tickets.FirstOrDefault(t => t.TicketCategory == category && t.TicketStatus.Value == status);
         }
     }
 }

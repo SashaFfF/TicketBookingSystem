@@ -39,7 +39,6 @@ namespace DataAccessLayer.Services
         {
             var all = await unitOfWork.EventRepository.ListAllAsync();
             return all.Distinct();
-            //return await unitOfWork.EventRepository.ListAllAsync();
         }
 
         public Task<Event> GetByIdAsync(int id)
@@ -90,9 +89,10 @@ namespace DataAccessLayer.Services
 
         public async Task<Event> GetFirstOrDefaultAsync(string name, Location location, DateTime dateTime)
         {
-            return await unitOfWork.EventRepository.FirstOrDefaultAsync(ev=> ev.Name == name &&
-                                                                             ev.EventLocation == location &&
-                                                                             ev.Date.Date == dateTime.Date );
+            var item = (await unitOfWork.EventRepository.ListAllAsync()).FirstOrDefault(ev => ev.Name == name && 
+                                                                                        ev.EventLocation == location && 
+                                                                                        ev.Date == dateTime);
+            return item;
         }
         public async Task<Event> GetfirstByName(string name)
         {

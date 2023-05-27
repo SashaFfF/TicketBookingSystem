@@ -16,57 +16,92 @@
                                         Command="{Binding InitScheduleCommand}"/>
     </ContentPage.Behaviors>
 
-    <!--<ContentPage.Resources>
-        <local:MyParameter x:Key="myParams" Loa
-    </ContentPage.Resources>-->
-
-    <ContentPage.Resources>
-        <converter:DateTimeAndLocationConverter x:Key="DateTimeAndLocationConverter"/>
-    </ContentPage.Resources>
     
     <ScrollView>
         <VerticalStackLayout>
 
             <Grid RowDefinitions="Auto"
-              ColumnDefinitions="Auto, Auto"
-              ColumnSpacing="30">
+                  ColumnDefinitions="Auto, Auto"
+                  ColumnSpacing="30">
                 <VerticalStackLayout Grid.Column="1" Grid.Row="0">
                     <Label Text="{Binding SelectedEvent.Name}" 
-                       TextColor="White"
-                       FontSize="50"
-                       FontAttributes="Bold"
-                       Padding="0,0,0,60"/>
+                           TextColor="White"
+                           FontSize="50"
+                           FontAttributes="Bold"
+                           Padding="0,0,0,60"/>
                     <Label Text="О фильме" 
                            TextColor="GreenYellow"
                            FontSize="28"
-                       Padding="0,0,0,10"
-                       FontAttributes="Bold"/>
+                           Padding="0,0,0,10"
+                           FontAttributes="Bold"/>
                     <Label Text="{Binding SelectedEvent.Description}"
-                       LineBreakMode="WordWrap"
-                       MaxLines="5"
-                       TextColor="White"
-                       FontSize="20"/>
-                    <Label Text="{Binding SelectedEvent.Date}"
-                       TextColor="White"
-                       Padding="0,40,0,10"/>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding SelectedEvent.EventAgeLimit.Value}"
-                                  TextColor="White"/>
-                                <Span Text="+"
-                                  TextColor="White"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                           LineBreakMode="WordWrap"
+                           MaxLines="5"
+                           TextColor="White"
+                           FontSize="20"
+                           WidthRequest="1100"/>
+
+                    <HorizontalStackLayout Margin="0,20,0,0">
+                        <Border StrokeThickness="1"
+                                Stroke="GreenYellow"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                Background="#2B0B98"
+                                Padding="2,3,7,3"
+                                HorizontalOptions="Start">
+                            <Label Padding="4">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedEvent.EventAgeLimit.Value}"
+                                              TextColor="White"
+                                              FontSize="18"/>
+                                        <Span Text="+"
+                                              TextColor="White"
+                                              FontSize="18"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Border>
+                        <Border StrokeThickness="1"
+                                Stroke="GreenYellow"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                Background="#2B0B98"
+                                Padding="2,3,7,3"
+                                HorizontalOptions="Start"
+                                Margin="5,0,0,0">
+                            <Label Padding="4">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedEvent.Date.Day}"
+                                      TextColor="White"
+                                      FontSize="18"/>
+                                        <Span Text=".0"
+                                      TextColor="White"
+                                      FontSize="18"/>
+                                        <Span Text="{Binding SelectedEvent.Date.Month}"
+                                      TextColor="White"
+                                      FontSize="18"/>
+                                        <Span Text="."
+                                      TextColor="White"
+                                      FontSize="18"/>
+                                        <Span Text="{Binding SelectedEvent.Date.Year}"
+                                      TextColor="White"
+                                      FontSize="18"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Border>
+                    </HorizontalStackLayout>
+                    
                     <Label Text="{Binding SelectedEvent.EventOrganizer.Name}"/>
                 </VerticalStackLayout>
+                
                 <Image Source="{Binding SelectedEvent.Poster}"
                    Aspect="AspectFill"
                    Grid.Row="0"
                    Grid.Column="0">
                 </Image>
             </Grid>
+
 
             <Label Text="Расписание"
                    FontSize="30" 
@@ -131,7 +166,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            
+
         </VerticalStackLayout>
     </ScrollView>
 

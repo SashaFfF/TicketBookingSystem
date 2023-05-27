@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicketBookingSystem.UI.Views.AddPages.AddEventPage"
+             xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels.AddViewModel"
+             x:DataType="viewmodel:AddEventViewModel"
+             xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title=" ">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Добавить">
+            <MenuFlyoutItem Text="Билет"
+                            Command="{Binding GoToAddTicketCommand}"/>
+
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding InitStartDataCommand}"/>
+    </ContentPage.Behaviors>
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="Название мероприятия:"
+                   TextColor="White"
+                   FontSize="Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Entry x:Name="nameEntry"
+                   Text="{Binding EventName}"
+                   HorizontalOptions="End"
+                   WidthRequest="400">
+            </Entry>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="Описание мероприятия:"
+                   TextColor="White"
+                   FontSize="Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Entry x:Name="descriptionEntry"
+                   TextColor="White"
+                   Text="{Binding EventDescription}"
+                   HorizontalOptions="End"
+                   WidthRequest="400">
+            </Entry>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="Дата:"
+                   TextColor="White"
+                   FontSize="Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+
+            <DatePicker MinimumDate="{Binding MinDateTime}"
+                        MaximumDate="{Binding MaxDateTime}"
+                        Date="{Binding EventDate}"
+                        Format="d/mm/yyyy"
+                        BackgroundColor="CornflowerBlue"/>
+            <Label Text="Время: "
+                   TextColor="White"
+                   FontSize="Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <TimePicker Time="{Binding EventTime}"
+                        BackgroundColor="CornflowerBlue"/>
+            <Label Text="{Binding EventTime}"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout WidthRequest="600">
+            <Label Text="Локация:"
+                   TextColor="White"
+                   FontSize="Medium"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Picker ItemsSource="{Binding Locations}"
+                    ItemDisplayBinding="{Binding BuildingName}">
+            </Picker>
+
+
+        </HorizontalStackLayout>
+        <!--<HorizontalStackLayout WidthRequest="600">
+            <Label Text="Название мероприятия:"
+                   TextColor="White"
+                   FontSize="Large"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   Margin="10,20,30,0"/>
+            <Entry x:Name="emailEntry"
+                   Text="{Binding UserEmail}"
+                   HorizontalOptions="End"
+                   Placeholder="example@gmail.com"
+                   WidthRequest="400">
+                <Entry.Behaviors>
+                    <toolkit:EmailValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                     ValidStyle="{StaticResource ValidEntryStyle}"
+                                                     Flags="ValidateOnValueChanged" />
+                </Entry.Behaviors>
+            </Entry>
+        </HorizontalStackLayout>-->
+    </VerticalStackLayout>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#041b61"
+                          Offset="0.1" />
+            <GradientStop Color="#360044"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+</ContentPage>

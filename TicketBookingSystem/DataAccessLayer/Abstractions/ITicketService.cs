@@ -12,5 +12,6 @@ namespace DataAccessLayer.Abstractions
     {
         public Task<IEnumerable<Ticket>> GetTicketsListByEvent(Event ev);
         public Task<Dictionary<Category, int>> GetCountOfFreeTicketsByCategory(Event ev, List<Category> categories, string ticketStatusValue);
+        public Task<Ticket> GetFirstOrDefaultTicket(Event ev, Category category, string status);
     }
 }

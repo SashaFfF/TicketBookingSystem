@@ -7,16 +7,16 @@ public partial class PurchasePage : ContentPage
 	public PurchasePage(PurchaseViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext= vm;
+		BindingContext = vm;
 	}
-
-    private async void RadioButtonCheckedChangedAsync(object sender, CheckedChangedEventArgs e)
+    private async void AlertButton_Clicked(object sender, EventArgs e)
     {
-		
-		RadioButton radioButton = sender as RadioButton;
-        PurchaseViewModel vm = (PurchaseViewModel)BindingContext;
-		vm.SelectedTime = (DateTime)radioButton.Value;
-		await vm.GetFreeTicketsByCategory();
-		await vm.GetTickets();
+        bool result = await DisplayAlert("Покупка", "Вы согласны с введенными вами данными?", "Да", "Нет");
+        if (result)
+        {
+            PurchaseViewModel vm =(PurchaseViewModel)BindingContext;
+            await vm.GoToNextPage();
+
+        }
     }
 }

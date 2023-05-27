@@ -49,9 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\circus_image.png" />
+	  <None Remove="Resources\Images\circus.png" />
 	  <None Remove="Resources\Images\concerts_image.png" />
 	  <None Remove="Resources\Images\exhibitions_image.png" />
+	  <None Remove="Resources\Images\login.png" />
 	  <None Remove="Resources\Images\movies_image.png" />
 	  <None Remove="Resources\Images\spectacle_image.png" />
 	</ItemGroup>
@@ -72,6 +73,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\TicketSelectionPage.xaml.cs">
+	    <DependentUpon>TicketSelectionPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AddPages\AddEventPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AddPages\AddTicketPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DeletePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\EmailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -90,7 +106,16 @@
 	  <MauiXaml Update="Views\EventPages\MoviesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\PurchasePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ResultPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TicketSelectionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\EventPages\SpectaclePage.xaml">

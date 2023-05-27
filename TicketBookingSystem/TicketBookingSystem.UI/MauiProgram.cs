@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using TicketBookingSystem.UI.ViewModels;
+using TicketBookingSystem.UI.ViewModels.AddViewModel;
 using TicketBookingSystem.UI.Views;
+using TicketBookingSystem.UI.Views.AddPages;
 
 namespace TicketBookingSystem.UI;
 
@@ -55,6 +57,9 @@ public static class MauiProgram
         services.AddSingleton<ITicketService, TicketService>();
         services.AddSingleton<ILocationService, LocationService>();
         services.AddSingleton<ICategoryService, CategoryService>();
+        services.AddSingleton<IAgeLimitService, AgeLimitService>();
+        services.AddSingleton<IOrganizerService, OrganizerService>();
+        services.AddSingleton<IStatusService, StatusService>();
 
         //Views
         services.AddSingleton<MoviesPage>();
@@ -62,10 +67,18 @@ public static class MauiProgram
         services.AddSingleton<SpectaclePage>();
         services.AddSingleton<ExhibitionsPage>();
         services.AddSingleton<CircusPage>();
+        services.AddSingleton<LoginPage>();
 
         services.AddTransient<DetailsPage>();
-        services.AddTransient<PurchasePage>();
+        services.AddTransient<TicketSelectionPage>();
         services.AddTransient<EmailPage>();
+        services.AddTransient<PurchasePage>();
+        services.AddTransient<ResultPage>();
+
+        services.AddTransient<AddEventPage>();
+        services.AddTransient<AddTicketPage>();
+
+        services.AddTransient<DeletePage>();
 
         //ViewModels
         services.AddSingleton<ConcertsViewModel>();
@@ -73,10 +86,16 @@ public static class MauiProgram
         services.AddSingleton<SpectacleViewModel>();
         services.AddSingleton<ExhibitionsViewModel>();
         services.AddSingleton<CircusViewModel>();
+        services.AddSingleton<LoginViewModel>();
 
 		services.AddTransient<DetailsViewModel>();
-        services.AddTransient<PurchaseViewModel>();
+        services.AddTransient<TicketSelectionViewModel>();
         services.AddTransient<EmailViewModel>();
+        services.AddTransient<PurchaseViewModel>();
+        services.AddTransient<ResultViewModel>();
+
+        services.AddTransient<AddEventViewModel>();
+        services.AddTransient<AddTicketViewModel>();
     }
 
     //метод, добавляющий контекст базы данных в качестве сервиса
@@ -103,31 +122,82 @@ public static class MauiProgram
         //await unitOfWork.RemoveDatabaseAsync();
         await unitOfWork.CreateDatabaseAsync();
 
-        //Add tourist routes
-        //IReadOnlyList<Event> routes = new List<TouristRoute>()
-        //    {
-        //        new TouristRoute() { Name = "TR1", Description="D1"},
-        //        new TouristRoute() { Name = "TR2", Description="D2"}
-        //    };
-        //foreach (var route in routes)
-        //{
-        //    await unitOfWork.TouristRouteRepository.AddAsync(route);
-        //}
-        //await unitOfWork.SaveAllAsync();
 
-        //Add sights
-        //int k = 1;
-        //for(int i=1; i<=8; i++)
+        //var freeStatus = await unitOfWork.StatusRepository.GetByIdAsync(1);
+        //var categories = await unitOfWork.CategoryRepository.ListAllAsync();
+        //var events = await unitOfWork.EventRepository.ListAllAsync();
+        //foreach (var ev in events)
         //{
-        //    for (int j = 1; j <= 10; j++)
+        //    foreach (var category in categories)
         //    {
-        //        await unitOfWork.TicketRepository.AddAsync(new Ticket()
+        //        //1-5 ряд
+        //        if (category.Id == 1)
         //        {
-        //            EventId = i
-        //        }); ;
+        //            for (int row = 1; row <= 5; row++)
+        //            {
+
+
+        //                for (int number = 1; number <= 3; number++)
+        //                {
+        //                    await unitOfWork.TicketRepository.AddAsync(new Ticket()
+        //                    {
+        //                        Event = ev,
+        //                        TicketCategory = category,
+        //                        TicketStatus = freeStatus,
+        //                        Row = row,
+        //                        Number = number
+
+        //                    });
+        //                }
+
+        //            }
+
+        //        }
+        //        //6-10 ряд
+        //        else if (category.Id == 2)
+        //        {
+        //            for (int row = 6; row <= 10; row++)
+        //            {
+        //                for (int number = 1; number <= 2; number++)
+        //                {
+        //                    await unitOfWork.TicketRepository.AddAsync(new Ticket()
+        //                    {
+        //                        Event = ev,
+        //                        TicketCategory = category,
+        //                        TicketStatus = freeStatus,
+        //                        Row = row,
+        //                        Number = number
+
+        //                    });
+        //                }
+
+        //            }
+        //        }
+        //        //11-15 ряд
+        //        else
+        //        {
+        //            for (int row = 11; row <= 15; row++)
+        //            {
+        //                for (int number = 1; number <= 2; number++)
+        //                {
+        //                    await unitOfWork.TicketRepository.AddAsync(new Ticket()
+        //                    {
+        //                        Event = ev,
+        //                        TicketCategory = category,
+        //                        TicketStatus = freeStatus,
+        //                        Row = row,
+        //                        Number = number
+
+        //                    });
+        //                }
+
+        //            }
+
+        //        }
+
         //    }
+
         //}
-            
         await unitOfWork.SaveAllAsync();
 
     }

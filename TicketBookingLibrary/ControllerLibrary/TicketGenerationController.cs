@@ -38,7 +38,7 @@ namespace ControllerLibrary
     {
         public static string BackgroundImage = "D:\\oop\\background.png";
 
-        public string GenerationTicketPdf(Ticket ticket)// Id
+        public static string GenerationTicketPdf(Ticket ticket)// Id
         {
             //PdfWriter: To pass the file name and write content to the document.
             string ticketPath = $"C:\\Users\\user\\Documents\\OOP\\tickets\\ticket{ticket.Id}.pdf"; //"D:\\oop\\tickets\\ticket{ticket.Id}.pdf"
@@ -62,24 +62,25 @@ namespace ControllerLibrary
                 .SetFontColor(ColorConstants.WHITE);
             document.Add(header);
             //Subheader
-            Paragraph subheader = new Paragraph($"{ev.EventType} «{ev.Name}»")
+            Paragraph subheader = new Paragraph(" ")
                 .SetFontSize(18)
                 .SetFontColor(ColorConstants.WHITE);
             document.Add(subheader);
             //Image
-            Image image = new Image(ImageDataFactory.Create("D:\\oop\\image.jpg")).SetHeight(260).SetTextAlignment(TextAlignment.CENTER);
+            Image image = new Image(ImageDataFactory.Create(ev.Poster)).SetHeight(260).SetTextAlignment(TextAlignment.CENTER);
             //Table
             Table table = new Table(2);
             Cell cell11 = new Cell()
                .SetTextAlignment(TextAlignment.LEFT)
                .SetFontColor(ColorConstants.WHITE)
                .SetFontSize(15)
-               .Add(new Paragraph($"Place: {ev.EventLocation.BuildingName}"))
-               .Add(new Paragraph($"Location: {ev.EventLocation.Street}, {ev.EventLocation.BuildingNumber}"))
-               .Add(new Paragraph($"Date: {ev.Date}"))
+               //.Add(new Paragraph($"Place: {ev.EventLocation.BuildingName}"))
+               //.Add(new Paragraph($"Location: {ev.EventLocation.Street.ToString()}, {ev.EventLocation.BuildingNumber}"))
+               .Add(new Paragraph($"Location: {ev.EventLocation.BuildingName}"))
+               .Add(new Paragraph($"Date and time: {ev.Date}"))
                .Add(new Paragraph($"Row: {ticket.Row}"))
                .Add(new Paragraph($"Number: {ticket.Number}"))
-               .Add(new Paragraph($"Price: {ticket.TicketCategory.Price}"));
+               .Add(new Paragraph($"Price: {ticket.TicketCategory.Price} BYN"));
             Cell cell12 = new Cell().Add(image);
             table.AddCell(cell11);
             table.AddCell(cell12);
@@ -99,7 +100,7 @@ namespace ControllerLibrary
             document.Close();
             return ticketPath;
         }
-        public async void SendEmail(string recipient, string ticketPath)
+        public static async void SendEmail(string recipient, string ticketPath)
         {
             MimeMessage message = new MimeMessage();
 

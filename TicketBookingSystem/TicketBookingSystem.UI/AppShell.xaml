@@ -28,8 +28,13 @@
         Route="ExhibitionsPage" />
     <ShellContent
         Title="Цирк"
-        Icon="circus_image.png"
+        Icon="circus.png"
         ContentTemplate="{DataTemplate views:CircusPage}"
         Route="CircusPage" />
+    <ShellContent 
+        Title="Вход"
+        Icon="login.png"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage" />
 
 </Shell>

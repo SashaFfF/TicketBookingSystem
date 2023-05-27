@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="ControllerLibrary">
+    <Position X="6.721" Y="1.544" Height="0.342" Width="1.325" />
+  </Comment>
+  <Class Name="ControllerLibrary.TicketController">
+    <Position X="4.75" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEABAACAAAAAAAABAQAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TicketController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControllerLibrary.TicketGenerationController">
+    <Position X="8" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>TicketGenerationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

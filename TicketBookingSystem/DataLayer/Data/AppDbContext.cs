@@ -41,6 +41,7 @@ namespace DataLayer.Data
             modelBuilder.Entity<Event>().Navigation(e => e.EventAgeLimit).AutoInclude();
             modelBuilder.Entity<Event>().Navigation(e => e.EventType).AutoInclude();
             modelBuilder.Entity<Event>().Navigation(e => e.EventLocation).AutoInclude();
+            modelBuilder.Entity<Event>().Navigation(e => e.EventOrganizer).AutoInclude();
             modelBuilder.Entity<Ticket>().Navigation(t => t.TicketCategory).AutoInclude();
             modelBuilder.Entity<Ticket>().Navigation(t => t.TicketStatus).AutoInclude();
             modelBuilder.Entity<Ticket>().Navigation(t => t.Event).AutoInclude();

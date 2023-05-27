@@ -5,15 +5,18 @@
              xmlns:viewmodel="clr-namespace:TicketBookingSystem.UI.ViewModels"
              x:DataType="viewmodel:ConcertsViewModel"
              xmlns:model="clr-namespace:EntityLibrary.EventClasses;assembly=EntityLibrary"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Концерты">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding GetListOfEventsCommand}"/>
+    </ContentPage.Behaviors>
 
     <ScrollView>
         <StackLayout Padding="60">
-            <Button Text="Загрузить все фильмы"
-                Command="{Binding GetListOfEventsCommand}"/>
 
             <HorizontalStackLayout>
-                <!--<Label Text="Сортировать по " FontSize="20" TextColor="White"/>-->
                 <Label Text="Дата: "
                        FontSize="20"
                        TextColor="White"
@@ -35,9 +38,11 @@
                             <x:String>Брест</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                        Command="{Binding GetListOfEventsCommand}"/>
+                    </Picker.Behaviors>
                 </Picker>
-                <Label Text="{Binding SelectedDate}"/>
-                <Label Text="{Binding SelectedCity}"/>
             </HorizontalStackLayout>
 
             <CollectionView ItemsSource="{Binding Events}"
@@ -57,7 +62,22 @@
                                 <Image Source="{Binding Poster}" Aspect="AspectFill"/>
                                 <Label Text="{Binding Name}" Padding="5" FontSize="20" FontAttributes="Bold" TextColor="White"/>
                                 <BoxView Color="Gray" HeightRequest="2"/>
-                                <Label Text="{Binding Date}" Padding="10" TextColor="White"/>
+                                <Label Padding="10">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Date.Day}"
+                                      TextColor="White"/>
+                                            <Span Text=".0"
+                                      TextColor="White"/>
+                                            <Span Text="{Binding Date.Month}"
+                                      TextColor="White"/>
+                                            <Span Text="."
+                                      TextColor="White"/>
+                                            <Span Text="{Binding Date.Year}"
+                                      TextColor="White"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                                 <Button Text="Купить билет"
                                         FontSize="15"
                                         BorderColor="#0000CD"
